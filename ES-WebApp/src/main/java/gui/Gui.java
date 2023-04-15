@@ -86,7 +86,7 @@ public class Gui {
 	public void createHtmlPane() {
 		JEditorPane jEditorPane = new JEditorPane();
 		jEditorPane.setEditable(false);
-		URL url = Gui.class.getResource("test.html");
+		URL url = Gui.class.getResource("index.html");
 
 		try {
 			jEditorPane.setPage(url);
