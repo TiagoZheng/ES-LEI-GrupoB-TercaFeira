@@ -1,147 +1,97 @@
-<%@ page import = "java.util.*, horario.Horario, horario.Aula, converter.Converter" %><?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html 
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
-<head>
-    <meta http-equiv="Content-Type" content='text/html; charset=UTF-8'/>
-    <meta http-equiv="Content-Style-Type" content="text/css"/>
-    <link rel="stylesheet" media="screen" type="text/css" title="Preferred" href="number-guess.css"/>
-    <title>JSP Number Guess</title>
-</head>
-<body>
-
-<%
-	Aula aula = new Aula("ME","Teoria dos Jogos e dos Contratos", "01789TP01","MEA1","30","Sex","13:00:00","14:30:00","02/12/2022","AA2.25","34");
-
-
-	Horario horario = Converter.csvToJava("src/main/resources/csv/teste2.csv");
-	
-%>
-
-    <h1><%= horario.getAulas().get(0).getUnidadeCurricular() %></h1>
-
-    <div class='content'>
-<%
-//  Initialize.
-
-    final HttpSession       Sess = request.getSession();
-    final boolean           JustStarted = Sess.isNew();
-    final Integer           No;
-    final ArrayList         Hist;
-
-    if (JustStarted) {
-
-        No = new Integer(new java.util.Random().nextInt(101));
-        Hist = new ArrayList();
-
-        Sess.setAttribute("no", No);
-        Sess.setAttribute("hist", Hist);
-
-    } else {
-
-        No = (Integer) Sess.getAttribute("no");
-        Hist = (ArrayList) Sess.getAttribute("hist");
-    }
-
-//  Process the input.
-
-    final String            GuessStr = request.getParameter("guess");
-    String                  GuessErrorMsg = null;
-    int                     Guess = -1;
-
-    if (!JustStarted) {
-
-        if (GuessStr != null && GuessStr.length() != 0) {
-
-            try {
-
-                Guess = Integer.parseInt(GuessStr);
-                if (Guess < 0 || Guess > 100)
-                    GuessErrorMsg = "The guess must be in the range 0 to 100 (inclusive). " + 
-                        "The number \"" + Guess + "\" is not in that range.";
-                else
-                    Hist.add(new Integer(Guess));
-
-            } catch (NumberFormatException e) {
-                GuessErrorMsg = "The guess \"" + GuessStr + "\" is not a number.";
-            }
-
-        } else
-            GuessErrorMsg = "The guess should be a number, but is blank.";
-    }
-
-//  Produce the dynamic portions of the web page.
-
-    if (Guess != No.intValue()) {
-%>
-        <div class='guess'>
-            <p>A random number between 0 and 100 (inclusive) has been selected.</p>
-<%
-        if (GuessErrorMsg != null) {
-%>
-            <div class='bad-field-error-message'><%= GuessErrorMsg %></div>
-<%
-        }
-%>
-            <form method='post'>
-                <label <%= GuessErrorMsg != null ? "class='bad-field'" : "" %> >Guess the number: 
-                    <input type='text' size='6' name='guess' 
-                    <%= GuessErrorMsg != null ? "value='" + GuessStr + "'" : "" %> />
-                </label>
-                <input type='submit' value='Guess'/>
-            </form>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Stay organized with our user-friendly Calendar featuring events, reminders, and a customizable interface. Built with HTML, CSS, and JavaScript. Start scheduling today!"
+    />
+    <meta
+      name="keywords"
+      content="calendar, events, reminders, javascript, html, css, open source coding"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Calendar with Events</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        <div class="calendar">
+          <div class="month">
+            <i class="fas fa-angle-left prev"></i>
+            <div class="date"></div>
+            <i class="fas fa-angle-right next"></i>
+          </div>
+          <div class="weekdays">
+            <div>Dom</div>
+            <div>Seg</div>
+            <div>Ter</div>
+            <div>Que</div>
+            <div>Qui</div>
+            <div>Sex</div>
+            <div>Sab</div>
+          </div>
+          <div class="days"></div>
+          <div class="goto-today">
+            <div class="goto">
+              <input type="text" placeholder="mm/yyyy" class="date-input" />
+              <button class="goto-btn">Go</button>
+            </div>
+            <button class="today-btn">Today</button>
+          </div>
         </div>
-<%
-    } else {
-
-        Sess.invalidate();  //  Destroy this session. We're done.
-%>
-        <div class='done'>
-            <p>Correct! The number was <%= No %>. 
-            You guessed it in <%= Hist.size() %> attempts.</p>
-
-            <form method='post'>
-                <input type='submit' value='Play Again'/>
-            </form>
+      </div>
+      <div class="right">
+        <div class="today-date">
+          <div class="event-day">wed</div>
+          <div class="event-date">12th december 2022</div>
         </div>
-<%
-    }
-
-    if (Hist.size() > 0) {
-%>
-        <div class='history'>
-            <table class='history'>
-                <thead>
-                    <tr>
-                        <th>No.</th> <th>Guess</th> <th>Result</th>
-                    </tr>
-                </thead>
-                <tbody>
-<%
-        for (int Index = Hist.size() - 1; Index >= 0; Index--) {
-            final Integer           PrevGuess = (Integer) Hist.get(Index);
-            final int               Relationship = PrevGuess.compareTo(No);
-            String                  Result = "Correct!";
-
-            if (Relationship < 0)
-                Result = "Too Low";
-            else if (Relationship > 0)
-                Result = "Too High";
-%>
-                    <tr>
-                        <td><%= Index + 1 %></td> <td><%= PrevGuess %></td> <td class='result'><%= Result %></td>
-                    </tr>
-<%
-        }
-%>
-                </tbody>
-            </table>
+        <div class="events"></div>
+        <div class="add-event-wrapper">
+          <div class="add-event-header">
+            <div class="title">Add Event</div>
+            <i class="fas fa-times close"></i>
+          </div>
+          <div class="add-event-body">
+            <div class="add-event-input">
+              <input type="text" placeholder="Event Name" class="event-name" />
+            </div>
+            <div class="add-event-input">
+              <input
+                type="text"
+                placeholder="Event Time From"
+                class="event-time-from"
+              />
+            </div>
+            <div class="add-event-input">
+              <input
+                type="text"
+                placeholder="Event Time To"
+                class="event-time-to"
+              />
+            </div>
+          </div>
+          <div class="add-event-footer">
+            <button class="add-event-btn">Add Event</button>
+          </div>
         </div>
-<%
-    }
-%>
+      </div>
+      <button class="add-event">
+        <i class="fas fa-plus"></i>
+      </button>
     </div>
 
-</body>
+
+
+    <script src="script.js"></script>
+  </body>
 </html>

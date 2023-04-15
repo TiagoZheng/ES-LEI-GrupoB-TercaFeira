@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.http.HttpClient;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -46,7 +47,7 @@ public class Gui {
 		addFrameContent();
 		frame.pack();
 	}
-
+	
 	private void addFrameContent() {
 
 		createHtmlPane();
@@ -183,3 +184,4 @@ public class Gui {
 		app.open();
 	}
 }
+
