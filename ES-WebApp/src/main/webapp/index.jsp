@@ -23,6 +23,11 @@
     <title>Calendar with Events</title>
   </head>
   <body>
+	  <form method="get" action="BasicServlet">
+	  	Enter no: <input type="text" name="t1">
+	  	<br><br>
+	  	<input type="submit">
+	  </form>
     <div class="container">
       <div class="left">
         <div class="calendar">

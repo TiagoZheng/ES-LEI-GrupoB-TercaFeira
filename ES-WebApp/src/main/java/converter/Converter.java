@@ -29,6 +29,10 @@ public class Converter {
 	
 
 //	--------------------------------- CSV TO JAVA ---------------------------------
+	// recebe o caminho dum ficheiro csv e transforma-o num ficheiro .json e chama recursivamente
+	// o método jsonToJava
+	
+	
 	
 	public static Horario csvToJava(String csvPath) {
 		String jsonPath = "src/test/resources/json/transit.json";

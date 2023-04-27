@@ -39,7 +39,8 @@ public class Aula {
 	}
 
 	public String getCurso() {
-		return curso;
+		return curso
+				;
 	}
 
 
