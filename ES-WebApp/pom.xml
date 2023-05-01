@@ -20,7 +20,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<sonar.projectKey>TiagoZheng_ES-LEI-GrupoB-TercaFeira</sonar.projectKey>
 		<sonar.organization>es-lei-grupob-tercafeira</sonar.organization>
-		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	
 	
