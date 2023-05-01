@@ -27,38 +27,33 @@ public class HorarioServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//URL resource = getServletContext().getResource("/WEB-INF/resources/teste4.json");
-		
-		String mainPath = "";
+		//Get path to files folder
+        String mainPath = "";
         try {
             URI uri = getServletContext().getResource("/WEB-INF/resources/").toURI();
             mainPath = Paths.get(uri).toString();
-
         } catch (MalformedURLException | URISyntaxException e) {
             e.printStackTrace();
         }
+
+        //TODO: Receber filename do horario que foi selecionado na homepage
         Path path = Paths.get(mainPath, "teste4.json");
-		
-		
-        horario = Converter.jsonToJava(path.toString());
-		request.setAttribute("horario", horario);
-		
-		getServletContext().getRequestDispatcher("/horario.jsp").forward(request, response);
-		
-//		response.setContentType("text/plain");
-//		response.getWriter().println("linha1");
-//		response.getWriter().println("linha2");
-//		
-//		response.getWriter().append("Content: ").append(Arrays.toString(request.getContextPath().getBytes()));
+        //teste
+        String filename = request.getParameter("filename");
+        System.out.println(filename);
+//        System.out.println(new File(filename).getName());
+
+        //TODO: verificar formato do ficheiro e fazer a conversao indicada
+        Horario horario = Converter.jsonToJava(path.toString());
+
+        //Para podermos receber o objeto java no horario.jsp com request.getAttribute("horario")
+        request.setAttribute("horario", horario);
+
+        //Go to horario page with updated request
+        getServletContext().getRequestDispatcher("/horario.jsp").forward(request, response);
 		
 		
 	}
 	
-	
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		doGet(request, response);
-		System.out.println("POST called");
-	}
 
 }
