@@ -33,10 +33,19 @@ public class Converter {
 //	--------------------------------- CSV TO JAVA ---------------------------------
 	
 	public static Horario csvToJava(String csvPath) {
-		String jsonPath = "src/test/resources/json/transit.json";
-		csvToJson(csvPath, jsonPath);
-		return jsonToJava(jsonPath);
+		String tempJson="";
+        try {
+            // Create temporary file
+            tempJson = Files.createTempFile("transit", ".json").toString();
+            System.out.println("Temp file : " + tempJson);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		csvToJson(csvPath, tempJson);
+		return jsonToJava(tempJson);
 	}
+
 
 //	--------------------------------- CSV TO JSON ---------------------------------
 	
