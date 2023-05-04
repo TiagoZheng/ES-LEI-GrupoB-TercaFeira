@@ -21,7 +21,7 @@ public class HorarioServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Horario horario;
+	private Horario horario = new Horario();
 
     
 	@Override
@@ -35,23 +35,23 @@ public class HorarioServlet extends HttpServlet {
         } catch (MalformedURLException | URISyntaxException e) {
             e.printStackTrace();
         }
-
-        //TODO: Receber filename do horario que foi selecionado na homepage
-        Path path = Paths.get(mainPath, "teste4.json");
-        //teste
+        
+        //get path to selected file
         String filename = request.getParameter("filename");
-        System.out.println(filename);
-//        System.out.println(new File(filename).getName());
-
-        //TODO: verificar formato do ficheiro e fazer a conversao indicada
-        Horario horario = Converter.jsonToJava(path.toString());
-
+        Path path = Paths.get(mainPath, filename);
+        
+        //make the right conversion
+        if(filename.endsWith(".json"))
+        	horario = Converter.jsonToJava(path.toString());
+        else if(filename.endsWith(".csv"))
+        	horario = Converter.csvToJava(path.toString());
+        
+        
         //Para podermos receber o objeto java no horario.jsp com request.getAttribute("horario")
         request.setAttribute("horario", horario);
 
         //Go to horario page with updated request
         getServletContext().getRequestDispatcher("/horario.jsp").forward(request, response);
-		
 		
 	}
 	
