@@ -4,8 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>horario page</title>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" media="screen" type="text/css" title="Preferred" href="number-guess.css"/>
+
+	<title>horario page</title>
 </head>
 <body>
 

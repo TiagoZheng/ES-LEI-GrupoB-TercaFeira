@@ -4,18 +4,24 @@
 
 <web-app>
 
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>Web App</display-name>
   
   <servlet>
-  	<servlet-name>HorarioServlet</servlet-name>
-  	<display-name>HorarioServlet</display-name>
-  	<description></description>
-  	<servlet-class>servlets.HorarioServlet</servlet-class>
+      <servlet-name>HorarioServlet</servlet-name>
+      <servlet-class>servlets.HorarioServlet</servlet-class>
   </servlet>
-  
+  <servlet>
+      <servlet-name>UploadServlet</servlet-name>
+      <servlet-class>servlets.UploadServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
-  	<servlet-name>HorarioServlet</servlet-name>
-  	<url-pattern>/horario</url-pattern>
+      <servlet-name>HorarioServlet</servlet-name>
+      <url-pattern>/horario</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>UploadServlet</servlet-name>
+      <url-pattern>/uploadfile</url-pattern>
   </servlet-mapping>
   
 </web-app>
