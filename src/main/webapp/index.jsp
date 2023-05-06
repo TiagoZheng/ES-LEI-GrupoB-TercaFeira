@@ -48,9 +48,7 @@
         <h2>Visualizar horario</h2>
 
         <% for(String path: getServletContext().getResourcePaths("/WEB-INF/resources/")) { %>
-
                <p><a href="/horario?filename=<%=getNameFromPath(path)%>"> <%= getNameFromPath(path) %> </a></p>
-
         <% } %>
 
         <br></br>
@@ -59,7 +57,7 @@
         <form method="post" action="uploadfile" enctype="multipart/form-data">
             <input type="file" name="file" />
             <br></br>
-            <label for="filename" > Renomear:</label>
+            <label for="filename"> Renomear:</label>
             <input type="text" id="filename" name="filename"></input>
             <input type="submit" value="Upload" />
          </form>
