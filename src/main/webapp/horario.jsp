@@ -27,14 +27,14 @@
 	<h3>Horario apenas com as aulas de Teoria dos Jogos e dos Contratos:</h3>
 	
 	<p><%= subHorario %></p>
-	<p>Primeira aula: </p>
-	<p><%=subHorario.getAulas().get(0).getData() %> às <%= subHorario.getAulas().get(0).getHoraInicio() %> na sala <%= subHorario.getAulas().get(0).getSala() %></p>
+	<p> Primeira aula: </p>
+	<p><%= subHorario.getAulas().get(0).getData() %> às <%= subHorario.getAulas().get(0).getHoraInicio() %> na sala <%= subHorario.getAulas().get(0).getSala() %></p>
 	
 	<h3>Horario apenas com as aulas de Arquitetura de Redes:</h3>
 	
 	<p><%= subHorario2 %></p>
 	<p>Primeira aula: </p>
-	<p><%=subHorario.getAulas().get(0).getData() %> às <%= subHorario.getAulas().get(0).getHoraInicio() %> na sala <%= subHorario.getAulas().get(0).getSala() %></p>
+	<p><%= subHorario.getAulas().get(0).getData() %> às <%= subHorario.getAulas().get(0).getHoraInicio() %> na sala <%= subHorario.getAulas().get(0).getSala() %></p>
 	
 </body>
 </html>
