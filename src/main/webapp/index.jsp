@@ -1,4 +1,4 @@
-<%@ page import = "java.util.*, java.io.File, horario.Horario, horario.Aula, converter.Converter" %>
+<%@ page import = "java.util.*, horario.Horario, horario.Aula, converter.Converter" %>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html 
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -39,33 +39,20 @@
 <% 
 	}
 %>
-		<br></br>
+	<br></br>
 
-		<%! public static String getNameFromPath(String fname) {
-            return new File(fname).getName();
-        } %> 
-
-        <h2>Visualizar horario</h2>
-
-        <% for(String path: getServletContext().getResourcePaths("/WEB-INF/resources/")) { %>
-
-               <p><a href="/horario?filename=<%=getNameFromPath(path)%>"> <%= getNameFromPath(path) %> </a></p>
-
-        <% } %>
-
-        <br></br>
-
-        <h2>Importar horario</h2>
-        <form method="post" action="uploadfile" enctype="multipart/form-data">
-            <input type="file" name="file" />
-            <br></br>
-            <label for="filename" > Renomear:</label>
-            <input type="text" id="filename" name="filename"></input>
-            <input type="submit" value="Upload" />
-         </form>
-
-        <br></br>
-        <br></br>
+		<h2>Visualizar horarios:</h2>
+		
+		<p><a href="/horario">Horario1</a></p>
+		
+	<br></br>
+		
+		<h2>Importar horarios</h2>
+		<form method="post" action="UploadServlet" enctype="multipart/form-data">
+			<input type="file" name="file" value="" multiple="multiple"></input>
+			<input type="submit" value="Import"></input>
+		</form>
+		
     </div>
 
 </body>
