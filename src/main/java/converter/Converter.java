@@ -41,7 +41,6 @@ public class Converter {
         try {
             // Create temporary file
             tempJson = Files.createTempFile("transit", ".json").toString();
-            System.out.println("Temp file : " + tempJson);
         } catch (IOException e) {
             e.printStackTrace();
         }

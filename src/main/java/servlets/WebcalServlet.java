@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.io.BufferedReader;
 
 
@@ -23,8 +22,7 @@ public class WebcalServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String webcalUri = request.getParameter("webcaluri");
-        System.out.println("webcalUri: " + webcalUri);
-
+       
         String spec = null;
         if (webcalUri != null && !webcalUri.isEmpty()) {
             spec = webcalUri.trim();
@@ -48,7 +46,7 @@ public class WebcalServlet extends HttpServlet {
                 }
                 reader.close();
                 String csvData = sb.toString();
-                System.out.println(csvData);
+                System.out.println("Received data: " + csvData);
             } catch (MalformedURLException e) {
                 System.out.println("webcal URI is malformed: no protocol");
             }
