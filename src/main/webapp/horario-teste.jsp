@@ -12,15 +12,18 @@
     <div id="container">
       
     	<header id="header">
+
     		<div id="monthDisplay"></div>
     		<div>
+    			<button id="toggleViewButton">Alternar vista</button>
+    		
     			<button id="backButton">Back</button>
     			<button id="nextButton">Next</button>
     		</div>
     		
     	</header>
     	
-		 <section class="weekdays" id="weekdays">
+		 <div class="weekdays" id="weekdays">
             <div>Domingo</div>
             <div>Segunda</div>
             <div>Terça</div>
@@ -28,10 +31,10 @@
             <div>Quinta</div>
             <div>Sexta</div>
             <div>Sábado</div>
-          </section>
-          
+          </div>
           
           <div id="calendar"></div>
+          <div id="weekCalendar"></div>
     </div>
 
 
@@ -49,7 +52,8 @@
 		<button id="closeButton">close</button>
 	</div>
 	<div id="modalBackDrop"></div>
-
+	
+	<section></section>
     <script src="script.js">
     	
     </script>

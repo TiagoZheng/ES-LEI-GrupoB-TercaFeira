@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width , initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
     <title>Calendário</title>
   </head>
@@ -10,9 +9,19 @@
 	  
     <div id="container">
       
-    	<header></header>
+    	<header id="header">
+
+    		<div id="monthDisplay"></div>
+    		<div>
+    			<button id="toggleViewButton">Alternar vista</button>
+    		
+    			<button id="backButton">Back</button>
+    			<button id="nextButton">Next</button>
+    		</div>
+    		
+    	</header>
     	
-		 <section id="weekdays">
+		 <div class="weekdays" id="weekdays">
             <div>Domingo</div>
             <div>Segunda</div>
             <div>Terça</div>
@@ -20,16 +29,29 @@
             <div>Quinta</div>
             <div>Sexta</div>
             <div>Sábado</div>
-          </section>
-          
+          </div>
           
           <div id="calendar"></div>
+          <div id="weekCalendar"></div>
     </div>
 
 
-
-    <script src="script.js">
-    	
-    </script>
+	<div id='newEventModal'>
+		<h2>New Event</h2>
+		<input id="eventTitleInput" placeholder="Event Title"/>
+		<button id="saveButton">Save</button>
+		<button id="cancelButton">Cancel</button>
+	</div>
+	
+	<div id="deleteEventModal">
+		<h2>Events for the day</h2>
+		<div id="dayEventList"></div>
+		<button id="deleteButton">delete</button>	
+		<button id="closeButton">close</button>
+	</div>
+	<div id="modalBackDrop"></div>
+	
+	<section></section>
+    <script src="script.js"></script>
   </body>
 </html>

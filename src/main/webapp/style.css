@@ -44,6 +44,14 @@ button {
   display: flex;
   flex-wrap: wrap;
 }
+
+#weekCalendar{
+	display: none flex;
+	width: 100%;
+	margin: auto;
+  	flex-wrap: wrap;
+}
+
 .day {
   width: 100px;
   padding: 10px;
@@ -78,6 +86,7 @@ button {
   background-color: #FFFCFF !important;
   box-shadow: none !important;
 }
+
 #newEventModal, #deleteEventModal {
   display: none;
   z-index: 20;
@@ -123,3 +132,4 @@ button {
   position: absolute;
   background-color: rgba(0,0,0,0.8);
 }
+

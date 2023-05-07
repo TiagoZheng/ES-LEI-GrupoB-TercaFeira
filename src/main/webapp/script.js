@@ -1,9 +1,11 @@
 let nav = 0; // corresponde ao mês em que estamos a navegar
 let clicked = null; //corresponder a um dia selecionado
-
+let isMonthView = true;
 // array onde vai ser guardado o ficheiro .json e restantes eventos
-let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')): [];	
-const calendar = document.getElementById('calendar');
+let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')): [];	// [{"date":12/7/2020; "title": titulo},{}}]
+const weekCalendar = document.getElementById("weekCalendar");
+const monthCalendar = document.getElementById('calendar')
+const toggleViewButton = document.getElementById("toggleViewButton");
 const newEventModal = document.getElementById('newEventModal');
 const deleteEventModal = document.getElementById('deleteEventModal');
 const backDrop = document.getElementById('modalBackDrop');
@@ -11,11 +13,26 @@ const eventTitleInput = document.getElementById('eventTitleInput');
 const dayEventList = document.getElementById('dayEventList');
 const weekdays =["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+
 /*função para chamar o modal diário após clique num dia
 	- @params date : recebe o dia que o user marcou*/
+	
+function toggleView(){
+	if(isMonthView){
+		weekCalendar.style.display = 'none';
+		monthCalendar.style.display='flex';
+		load();
+	}else{
+		weekCalendar.style.display = 'flex';
+		monthCalendar.style.display='none';
+	}
+}
+
+
+
 function openModal(date){
 	clicked = date;
-	var eventForDay = events.filter(e => e.date === clicked);
+	let eventForDay = events.filter(e => e.date === clicked);
 	
 	if(eventForDay.length > 0){
 		for(const element of eventForDay){
@@ -86,7 +103,7 @@ function load(){
 	const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);	// desvio de dias no calendário tendo em conta em que dia da semana o mês começa
 	document.getElementById("monthDisplay").innerText = `${date.toLocaleString('pt-pt', {month: 'long'})} , ${year}`;
 		
-	calendar.innerHTML = '';
+	monthCalendar.innerHTML = '';
 	
 	for(let i=1; i <= paddingDays + daysInMonth; i++){
 		
@@ -112,7 +129,7 @@ function load(){
 		}else{
 			daySquare.classList.add('padding');	// dia em branco
 		}
-		calendar.appendChild(daySquare);
+		monthCalendar.appendChild(daySquare);
 	}
 } load();	
 
@@ -121,15 +138,21 @@ function initButtons(){
 	document.getElementById("nextButton").addEventListener('click', () => {
 		nav++;
 		load();
-	})
+	});
 	document.getElementById("backButton").addEventListener('click', () => {
 		nav--;
 		load();
-	})
+	});
+	
+	toggleViewButton.addEventListener('click', () => {
+		isMonthView = !isMonthView;
+		toggleView();	
+	});
 	document.getElementById('saveButton').addEventListener('click', saveEvent);
 	document.getElementById('cancelButton').addEventListener('click', closeModal);
-	document.getElementById('deleteButton').addEventListener('click', deleteEvent);
+	//document.getElementById('deleteButton').addEventListener('click', deleteEvent);
 	document.getElementById('closeButton').addEventListener('click', closeModal);
+
 }
 initButtons();
 load();
