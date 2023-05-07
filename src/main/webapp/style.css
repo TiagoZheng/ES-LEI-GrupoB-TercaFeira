@@ -51,6 +51,15 @@ button {
 	margin: auto;
   	flex-wrap: wrap;
 }
+#aside{
+	flex-shrink: 0;
+	background-color: white;
+	color: black;
+	width: 30%;
+	border-left: blue 5px;
+	text-align: center;
+	margin: 20px;
+}
 
 .day {
   width: 100px;
