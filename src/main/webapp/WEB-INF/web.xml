@@ -18,6 +18,12 @@
   	<servlet-name>WebcalServlet</servlet-name> 
   	<servlet-class>servlets.WebcalServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>DownloadServlet</servlet-name>
+  	<display-name>DownloadServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.DownloadServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
       <servlet-name>HorarioServlet</servlet-name>
@@ -30,6 +36,10 @@
   <servlet-mapping>
   	<servlet-name>WebcalServlet</servlet-name>
   	<url-pattern>/webcalservlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DownloadServlet</servlet-name>
+  	<url-pattern>/downloadservlet</url-pattern>
   </servlet-mapping>
   
 </web-app>
