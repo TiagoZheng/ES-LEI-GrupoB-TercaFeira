@@ -14,3 +14,4 @@ Funcionalidades incompletas:
 
 Funcionalidades não implementadas:
   - Comparar eventos e sobreposições
+  - Criar horario para um novo aluno
