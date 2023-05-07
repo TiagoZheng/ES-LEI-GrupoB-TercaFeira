@@ -59,7 +59,7 @@ public class Aula implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Aula [unidadeCurricular=" + unidadeCurricular + "]";
+		return "Aula [UC=" + unidadeCurricular + ", Dia=" + data + "]";
 	}
 
 	public String getCurso() {
