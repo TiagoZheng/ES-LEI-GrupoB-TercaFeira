@@ -21,6 +21,10 @@ public class Horario implements Serializable{
 		aulas.add(aula);
 	}
 	
+	public void addAulas(Horario horario) {
+        aulas.addAll(horario.getAulas());
+    }
+	
 	public Horario getAulasFromUC(String unidadeCurricular) {
 		Horario novoHorario = new Horario();
 		for (Aula aula: aulas) {

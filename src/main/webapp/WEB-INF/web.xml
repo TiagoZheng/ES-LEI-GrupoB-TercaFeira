@@ -14,6 +14,10 @@
       <servlet-name>UploadServlet</servlet-name>
       <servlet-class>servlets.UploadServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>WebcalServlet</servlet-name> 
+  	<servlet-class>servlets.WebcalServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
       <servlet-name>HorarioServlet</servlet-name>
@@ -22,6 +26,10 @@
   <servlet-mapping>
       <servlet-name>UploadServlet</servlet-name>
       <url-pattern>/uploadfile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>WebcalServlet</servlet-name>
+  	<url-pattern>/webcalservlet</url-pattern>
   </servlet-mapping>
   
 </web-app>

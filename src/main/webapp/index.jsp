@@ -53,7 +53,7 @@
 
         <br></br>
 
-        <h2>Importar horario</h2>
+        <h2>Importar horario</h2>       
         <form method="post" action="uploadfile" enctype="multipart/form-data">
             <input type="file" name="file" />
             <br></br>
@@ -64,6 +64,12 @@
 
         <br></br>
         <br></br>
+        <h2>Importar horario do fénix</h2>
+        <form method="post" action="webcalservlet" >
+            <label for="webcaluri">Webcal URI:</label>
+            <input type="text" id="webcaluri" name="webcaluri"></input>
+            <input type="submit" value="Import" />
+        </form>
     </div>
 
 </body>
