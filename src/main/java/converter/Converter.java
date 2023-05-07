@@ -26,6 +26,10 @@ import horario.Aula;
 import horario.Horario;
 
 public class Converter {
+	
+	private Converter() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
 
 	private static ObjectMapper mapper = new ObjectMapper();
 	
@@ -37,7 +41,6 @@ public class Converter {
         try {
             // Create temporary file
             tempJson = Files.createTempFile("transit", ".json").toString();
-            System.out.println("Temp file : " + tempJson);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,11 +68,6 @@ public class Converter {
 		try (MappingIterator<Map<String, Object>> iterator = csvMapper.readerFor(Map.class).with(bootstrap).readValues(file)) {
 			return iterator.readAll();
 		}
-	}
-
-	private static void writeAsJson(List<Map<String, Object>> objects, File file) throws IOException {
-		renameKeys(objects);
-		mapper.writeValue(file, renameKeys(objects));
 	}
 	
 	private static List<Map<String, Object>> renameKeys(List<Map<String, Object>> objects) {
@@ -113,10 +111,9 @@ public class Converter {
     }
 	
 	public static void stringToJson(String jsonString, String path) {
-        try {
-            FileWriter fileWriter = new FileWriter(path);
+		
+        try (FileWriter fileWriter = new FileWriter(path)){
             fileWriter.write(jsonString);
-            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -158,14 +155,8 @@ public class Converter {
 //	--------------------------------- JAVA/JSON ---------------------------------
 
 	public static String javaToJson(Horario horario) { 
-//      String jsonString = "[";
-//      for(Aula aula: horario.getAulas()) {
-//          jsonString += ("," + javaToJson(aula));
-//      }
-//      return jsonString + "]";
 
-
-      ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+      ObjectWriter objectWriter = new ObjectMapper().writer();
       String json = "";
       try {
           json = objectWriter.writeValueAsString(horario.getAulas());
@@ -176,11 +167,9 @@ public class Converter {
   }
 	
 	public static String javaToJson(Aula aula) {
-//      ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
       try {
           return mapper.writeValueAsString(aula);
       } catch (JsonProcessingException e) {
-          e.printStackTrace();
           return "javaToJson: writeError";
       }
   }

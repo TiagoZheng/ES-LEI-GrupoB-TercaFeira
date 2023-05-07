@@ -10,9 +10,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>WebApp Maven Webapp</name>
-	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
+	<name>ES Web App</name>
+	<url>http://www.projeto-es.com</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,7 +28,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
@@ -57,7 +55,6 @@
 			<version>2.13.0</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 		<dependency>
 		    <groupId>org.junit.jupiter</groupId>
 		    <artifactId>junit-jupiter-api</artifactId>
@@ -68,18 +65,15 @@
 	</dependencies>
 
 	<build>
+		
 		<finalName>WebApp</finalName>
 		
-		
-		<pluginManagement><!-- lock down plugins versions to avoid using Maven
-			defaults (may be moved to parent pom) -->
+		<pluginManagement>
 			<plugins>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>3.1.0</version>
 				</plugin>
-				<!-- see
-				http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>3.0.2</version>
@@ -87,7 +81,6 @@
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.0</version>
-					
 				</plugin>
 				<plugin>
 					<artifactId>maven-surefire-plugin</artifactId>

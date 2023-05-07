@@ -12,6 +12,7 @@ class HorarioTest {
 	private Horario horario = new Horario();
 	private String pathToCsv = "src/test/resources/csv/teste2.csv";
 	private String pathToCsv2 = "src/test/resources/csv/teste.csv";
+	
 	@Test
 	void getAulasFromUCtest() {
 		horario = Converter.csvToJava(pathToCsv);

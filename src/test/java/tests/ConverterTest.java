@@ -1,18 +1,14 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,15 +29,16 @@ class ConverterTest {
 				+ "\"Hora inicio da aula\":\"13:00:00\",\"Hora fim da aula\":\"14:30:00\",\"Data da aula\":\"02/12/2022\","
 				+ "\"Sala atribuida a aula\":\"AA2.25\",\"Lotacao da sala\":\"34\"}";
 	
-	private String jsonObjectWithWeirdCharacters = "{\"Curso\":\"PIUDHIST\",\"Unidade Curricular\":\"SeminÃ¡rio de Projecto I (Piudhist)\","
-			+ "\"Turno\":\"SP-I_(Piudhist)S01\",\"Turma\":\"DHMCMG1\",\"Inscritos no turno\":\"0\","
-			+ "\"Dia da semana\":\"Seg\",\"Hora inÃ­cio da aula\":\"18:00:00\",\"Hora fim da aula\":\"20:00:00\","
-			+ "\"Data da aula\":\"12/12/2022\",\"Sala atribuÃ­da Ã  aula\":\"AA3.24\",\"LotaÃ§Ã£o da sala\":\"30\"}";
-
 	private String jsonArray = "[{\"Inscritos no turno\":\"30\",\"Turma\":\"MEA1\",\"Turno\":\"01789TP01\",\"Hora inicio da aula\":\"13:00:00\",\"Lotacao da sala\":\"34\",\"Hora fim da aula\":\"14:30:00\",\"Curso\":\"ME\",\"Unidade Curricular\":\"Teoria dos Jogos e dos Contratos\",\"Dia da semana\":\"Sex\",\"Data da aula\":\"02/12/2022\",\"Sala atribuida a aula\":\"AA2.25\"},"
 			+ "{\"Inscritos no turno\":\"52\",\"Turma\":\"EI-A6, EI-A5, EI-A4, EI-A3, EI-A2, EI-A1\",\"Turno\":\"03703TP02\",\"Hora inicio da aula\":\"14:30:00\",\"Lotacao da sala\":\"80\",\"Hora fim da aula\":\"16:00:00\",\"Curso\":\"LETI, LEI, LEI-PL\",\"Unidade Curricular\":\"Cálculo I\",\"Dia da semana\":\"Qui\",\"Data da aula\":\"15/12/2022\",\"Sala atribuida a aula\":\"C6.10\"},"
 			+ "{\"Inscritos no turno\":\"35\",\"Turma\":\"FCC2\",\"Turno\":\"M8642TP01\",\"Hora inicio da aula\":\"11:00:00\",\"Lotacao da sala\":\"68\",\"Hora fim da aula\":\"12:30:00\",\"Curso\":\"LFC\",\"Unidade Curricular\":\"Reporte Financeiro\",\"Dia da semana\":\"Qua\",\"Data da aula\":\"16/11/2022\",\"Sala atribuida a aula\":\"C4.06\"},"
 			+ "{\"Inscritos no turno\":\"12\",\"Turma\":\"ET-C4, ET-C3\",\"Turno\":\"03708PL07\",\"Hora inicio da aula\":\"11:00:00\",\"Lotacao da sala\":\"66\",\"Hora fim da aula\":\"12:30:00\",\"Curso\":\"LETI, LEI, LEI-PL, LIGE, LIGE-PL\",\"Unidade Curricular\":\"Arquitetura de Redes\",\"Dia da semana\":\"Qui\",\"Data da aula\":\"17/11/2022\",\"Sala atribuida a aula\":\"C7.06\"}]";
+	
+	private String jsonArray2 = "[{\"Curso\":\"ME\",\"Unidade Curricular\":\"Teoria dos Jogos e dos Contratos\",\"Turno\":\"01789TP01\",\"Turma\":\"MEA1\",\"Inscritos no turno\":\"30\",\"Dia da semana\":\"Sex\",\"Hora inicio da aula\":\"13:00:00\",\"Hora fim da aula\":\"14:30:00\",\"Data da aula\":\"02/12/2022\",\"Sala atribuida a aula\":\"AA2.25\",\"Lotacao da sala\":\"34\"},"
+			+ "{\"Curso\":\"LETI, LEI, LEI-PL\",\"Unidade Curricular\":\"Cálculo I\",\"Turno\":\"03703TP02\",\"Turma\":\"EI-A6, EI-A5, EI-A4, EI-A3, EI-A2, EI-A1\",\"Inscritos no turno\":\"52\",\"Dia da semana\":\"Qui\",\"Hora inicio da aula\":\"14:30:00\",\"Hora fim da aula\":\"16:00:00\",\"Data da aula\":\"15/12/2022\",\"Sala atribuida a aula\":\"C6.10\",\"Lotacao da sala\":\"80\"},"
+			+ "{\"Curso\":\"LFC\",\"Unidade Curricular\":\"Reporte Financeiro\",\"Turno\":\"M8642TP01\",\"Turma\":\"FCC2\",\"Inscritos no turno\":\"35\",\"Dia da semana\":\"Qua\",\"Hora inicio da aula\":\"11:00:00\",\"Hora fim da aula\":\"12:30:00\",\"Data da aula\":\"16/11/2022\",\"Sala atribuida a aula\":\"C4.06\",\"Lotacao da sala\":\"68\"},"
+			+ "{\"Curso\":\"LETI, LEI, LEI-PL, LIGE, LIGE-PL\",\"Unidade Curricular\":\"Arquitetura de Redes\",\"Turno\":\"03708PL07\",\"Turma\":\"ET-C4, ET-C3\",\"Inscritos no turno\":\"12\",\"Dia da semana\":\"Qui\",\"Hora inicio da aula\":\"11:00:00\",\"Hora fim da aula\":\"12:30:00\",\"Data da aula\":\"17/11/2022\",\"Sala atribuida a aula\":\"C7.06\",\"Lotacao da sala\":\"66\"}]";
+	
 	
 	private String pathToJsonObject = "src/test/resources/json/jsonObject.json";
 	private String pathToJsonArray = "src/test/resources/json/jsonArray.json";
@@ -64,10 +61,6 @@ class ConverterTest {
 		assertEquals(true, Converter.readFile("src/test/resources/json/csvToJsonTest.json").startsWith(initialText));
 	}
 	
-//	void givenOneLineCsvReturnsJson() {
-//		Converter.csvToJson(pathToCsv, "src/test/resources/json/csvToJsonTest.json");	
-//		assertEquals(true, readFile("src/test/resources/json/csvToJsonTest.json").startsWith(initialText));
-//	}
 	@Test
 	void givenJsonArrayReturnsCsv() {
 		Converter.jsonToCsv(pathToJsonArray, "src/test/resources/csv/jsonToCsvTest.csv");
@@ -76,7 +69,6 @@ class ConverterTest {
 		assertEquals(expected.getTotalSpace(), actual.getTotalSpace());
 	}
 	
-	//TODO givenJsonObjectReturnsCsv
 	@Test
 	void givenJsonObjectReturnsCsv() {
 		Converter.jsonToCsv(pathToJsonObject, "src/test/resources/csv/jsonObjectToCsvTest.csv");
@@ -112,7 +104,7 @@ class ConverterTest {
 		assertEquals(jsonObject, Converter.javaToJson(aula));
 		
 		horario = Converter.csvToJava(pathToCsv);
-		assertEquals(jsonArray, Converter.javaToJson(horario));
+		assertEquals(jsonArray2, Converter.javaToJson(horario));
 	}
 	
 	
