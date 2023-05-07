@@ -6,7 +6,7 @@ Membros do grupo (nome, nº de estudante, git username):
   - Tiago Zheng, 87734, TiagoZheng
   - Carolina Costa, 98643, cntxc-iscte
   - Tiago G. Pereira, , tiagopereira2000
-  - Gonçalo Lopes, , gfcls-iscte
+  - Gonçalo Lopes, 99370, gfcls-iscte
   
 Funcionalidades incompletas:
   - Importar webcal: O WebcalServlet recebe o URI e faz a ligação ao fénix mas não conseguimos tratar os dados retornados.
