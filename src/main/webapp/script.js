@@ -2,7 +2,7 @@ let nav = 0; // corresponde ao mês em que estamos a navegar
 let clicked = null; //corresponder a um dia selecionado
 let isMonthView = true;
 // array onde vai ser guardado o ficheiro .json e restantes eventos
-let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')): [];	// [{"date":12/7/2020; "title": titulo},{}}]
+let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')): [];
 const weekCalendar = document.getElementById("weekCalendar");
 const monthCalendar = document.getElementById('calendar')
 const toggleViewButton = document.getElementById("toggleViewButton");
@@ -14,8 +14,16 @@ const dayEventList = document.getElementById('dayEventList');
 const weekdays =["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 
+function addEvent(date, titulo){
+	events.push({
+		date: date,
+		title: titulo,
+	});
+	localStorage.setItem('events', JSON.stringify(events)); 
+}
+
 /*função para chamar o modal diário após clique num dia
-	- @params date : recebe o dia que o user marcou*/
+	- @params date : recebe o dia que o user marcou*/	
 	
 function toggleView(){
 	if(isMonthView){
@@ -72,6 +80,7 @@ function saveEvent(){
 	}
 	closeModal();
 }
+
 
 function deleteEvent(event){
 	 events = events.filter(e => e !== event);
@@ -156,6 +165,8 @@ function initButtons(){
 }
 initButtons();
 load();
+
+
 
 
 

@@ -19,6 +19,8 @@
 		Horario subHorario2 = horario.getAulasFromUC("Arquitetura de Redes");
 	%>
 	
+			
+	
 	<h1>Horario Page (ficheiro horario.jsp)</h1>
 	
 	<p>O horario selecionado tem um total de <%= horario.getAulas().size() %> aulas.</p>

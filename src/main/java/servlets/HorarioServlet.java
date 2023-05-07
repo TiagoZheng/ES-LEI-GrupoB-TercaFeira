@@ -49,7 +49,7 @@ private Horario horario = new Horario();
         request.setAttribute("horario", horario);
 
         //Go to horario page with updated request
-        getServletContext().getRequestDispatcher("/horario.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/horario-teste.jsp").forward(request, response);
 		
 	}
 
