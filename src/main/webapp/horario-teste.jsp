@@ -63,6 +63,7 @@
 		let nav = 0; // corresponde ao mês em que estamos a navegar
 		let clicked = null; //corresponder a um dia selecionado
 		let isMonthView = true;
+		let weekNav = 0;
 		// array onde vai ser guardado o ficheiro .json e restantes eventos
 		let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')): [];
 		const weekCalendar = document.getElementById("weekCalendar");
@@ -88,6 +89,8 @@
 			- @params date : recebe o dia que o user marcou*/	
 			
 		function toggleView(){
+			nav=0;
+			weekNav=0;
 			if(isMonthView){
 				weekCalendar.style.display = 'none';
 				monthCalendar.style.display='flex';
@@ -95,6 +98,7 @@
 			}else{
 				weekCalendar.style.display = 'flex';
 				monthCalendar.style.display='none';
+				load();
 			}
 		}
 	
@@ -154,64 +158,110 @@
 		function load(){
 			const date = new Date();
 			
-			if(nav !== 0){
-				date.setMonth(new Date().getMonth() + nav);
-			}
-			
-			const day = date.getDate();
-			const month = date.getMonth();
-			const year = date.getFullYear();
-			const firstDayOfMonth = new Date(year, month, 1);	// primeiro dia do mês
-			const daysInMonth = new Date(year, month+1, 0).getDate();	//ultimo dia do mês
-			const dateString = firstDayOfMonth.toLocaleString('en-us', {
-				weekday: 'long',
-				year: 'numeric',
-				month:'numeric',
-				day:'numeric',
-			});
-			console.log(dateString);
-			
-			const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);	// desvio de dias no calendário tendo em conta em que dia da semana o mês começa
-			document.getElementById("monthDisplay").innerText = `${date.toLocaleString('pt-pt', {month: 'long'})} , ${year}`;
+			if(isMonthView){
+				if(nav !== 0){
+					date.setMonth(new Date().getMonth() + nav);
+				}
+				const day = date.getDate();
+				const month = date.getMonth();
+				const year = date.getFullYear();
+				const firstDayOfMonth = new Date(year, month, 1);	// primeiro dia do mês
+				const daysInMonth = new Date(year, month+1, 0).getDate();	//ultimo dia do mês
+				const dateString = firstDayOfMonth.toLocaleString('en-us', {
+					weekday: 'long',
+					year: 'numeric',
+					month:'numeric',
+					day:'numeric',
+				});
+				console.log(dateString);
 				
-			monthCalendar.innerHTML = '';
-			
-			for(let i=1; i <= paddingDays + daysInMonth; i++){
+		
+				const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);	// desvio de dias no calendário tendo em conta em que dia da semana o mês começa
+				document.getElementById("monthDisplay").innerText = `${date.toLocaleString('pt-pt', {month: 'long'})} , ${year}`;
 				
-				const daySquare = document.createElement('div'); //entrada diária na tabela
-				daySquare.classList.add('day');
+				monthCalendar.innerHTML = '';
 				
-				const dayString = `${month + 1}/${i - paddingDays}/${year}`;
-				
-				if(i > paddingDays){	
-					daySquare.innerText = i - paddingDays;	// inserir dia do mês nos quadrados
+				for(let i=1; i <= paddingDays + daysInMonth; i++){
 					
-					const eventForDay = events.find(e => e.date === dayString);
+					const daySquare = document.createElement('div'); //entrada diária na tabela
+					daySquare.classList.add('day');
+					
+					const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+					
+					if(i > paddingDays){	
+						daySquare.innerText = i - paddingDays;	// inserir dia do mês nos quadrados
+						
+						const eventForDay = events.find(e => e.date === dayString);
+					
+						if(eventForDay){
+							const eventDiv = document.createElement('div');
+							eventDiv.classList.add('event');
+							eventDiv.innerText = eventForDay.title;
+							daySquare.appendChild(eventDiv);
+						}
+						
+						daySquare.addEventListener('click', () => openModal(dayString));	//evento ao clicar nalgum dia
+						
+					}else{
+						daySquare.classList.add('padding');	// dia em branco
+					}
+					monthCalendar.appendChild(daySquare);
+				}
+			} else {
+				weekCalendar.innerHTML = '';
+				const today = new Date(); // Obtém a data atual
+				if(weekNav !== 0){
+					today.setDate(today.getDate() + weekNav*7);
+				}
+				const dayOfWeek = date.getDay(); // Obtém o dia da semana (0-6, onde 0 é domingo)
+				// Calcula a diferença entre o dia atual e o primeiro dia da semana (domingo)
+				const diff = (dayOfWeek >= 0 ? dayOfWeek : 7) - 0;
+				// Define a data para o primeiro dia da semana
+				const firstDayOfWeek = new Date(today.setDate(today.getDate() - diff));
+				const month = firstDayOfWeek.getMonth();
+				const year = firstDayOfWeek.getFullYear();
+				const day = firstDayOfWeek.getDate();
+				document.getElementById("monthDisplay").innerText = `${firstDayOfWeek.toLocaleString('pt-pt', {month: 'long'})} , ${year}`;
 				
-					if(eventForDay){
-						const eventDiv = document.createElement('div');
-						eventDiv.classList.add('event');
-						eventDiv.innerText = eventForDay.title;
-						daySquare.appendChild(eventDiv);
+				for(let i=0; i<7; i++){
+					const dayString = `${month + 1}/${firstDayOfWeek.getDate()}/${year}`;
+					const weekdayDiv = document.createElement('div');
+					weekdayDiv.classList.add('weekdayDiv');
+					weekdayDiv.innerText = firstDayOfWeek.getDate();
+					weekCalendar.appendChild(weekdayDiv);
+					let eventsForDay = events.filter(e => e.date === dayString);
+					
+					if(eventsForDay.length > 0){
+						for(const element of eventsForDay){
+							const eventDiv = document.createElement('div');
+							eventDiv.classList.add('eventDiv');
+							weekdayDiv.appendChild(eventDiv);
+							eventDiv.innerText = element.title;
+						}
 					}
 					
-					daySquare.addEventListener('click', () => openModal(dayString));	//evento ao clicar nalgum dia
-					
-				}else{
-					daySquare.classList.add('padding');	// dia em branco
+					firstDayOfWeek.setDate(firstDayOfWeek.getDate() + 1);
 				}
-				monthCalendar.appendChild(daySquare);
 			}
+			
 		} load();	
 	
 		/*iniciar Botões e eventos de back e next*/
 		function initButtons(){
 			document.getElementById("nextButton").addEventListener('click', () => {
-				nav++;
+				if(isMonthView){
+					nav++;
+				} else {
+					weekNav++;
+				}
 				load();
 			});
 			document.getElementById("backButton").addEventListener('click', () => {
-				nav--;
+				if(isMonthView){
+					nav--;
+				} else {
+					weekNav--;
+				}
 				load();
 			});
 			
